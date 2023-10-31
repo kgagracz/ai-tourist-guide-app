@@ -1,3 +1,3 @@
 export default {
-    welcomeMessage: 'Welcome! You are currently in...'
+  welcomeMessage: 'Welcome! You are currently in...',
 }

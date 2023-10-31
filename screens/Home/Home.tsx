@@ -1,11 +1,11 @@
-import { useTranslation } from 'react-i18next';
-import { Image, StyleSheet, View } from 'react-native';
-import { NormalText } from '../../components/atoms/NormalText';
-import { BoldText } from '../../components/atoms/BoldText';
-import '../../i18n';
+import { useTranslation } from 'react-i18next'
+import { Image, StyleSheet, View } from 'react-native'
+import { NormalText } from '../../components/atoms/NormalText'
+import { BoldText } from '../../components/atoms/BoldText'
+import '../../i18n'
 
 export function Home() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <View>
@@ -14,7 +14,7 @@ export function Home() {
       <Image source={require('../../assets/images/cracow.jpg')} style={styles.currentCityImage} />
       {/* <StatusBar style={"auto"} /> */}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     height: 400,
     objectFit: 'cover',
   },
-});
+})

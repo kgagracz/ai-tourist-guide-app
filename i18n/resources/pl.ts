@@ -1,3 +1,3 @@
 export default {
-    welcomeMessage: 'Witaj! Znajdujesz się w mieście...'
+  welcomeMessage: 'Witaj! Znajdujesz się w mieście...',
 }
