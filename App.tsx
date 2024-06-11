@@ -1,7 +1,8 @@
 import * as Font from 'expo-font'
 import { useState } from 'react'
 import AppLoading from 'expo-app-loading'
-import { Home } from './screens/Home/Home'
+import { NavigationContainer } from '@react-navigation/native'
+import { Navigation } from './components/organisms/Navigation'
 
 const getFonts = () => Font.loadAsync({
   poppins: require('./assets/fonts/Poppins-Regular.ttf'),
@@ -21,6 +22,8 @@ export default function App() {
   }
 
   return (
-    <Home />
+    <NavigationContainer>
+      <Navigation />
+    </NavigationContainer>
   )
 }
