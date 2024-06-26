@@ -3,6 +3,7 @@ import { useState } from 'react'
 import AppLoading from 'expo-app-loading'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Navigation } from './components/organisms/Navigation'
+import { MapContextProvider } from './context/MapContext'
 
 const getFonts = () => Font.loadAsync({
   poppins: require('./assets/fonts/Poppins-Regular.ttf'),
@@ -25,7 +26,9 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Navigation />
+      <MapContextProvider>
+        <Navigation />
+      </MapContextProvider>
     </QueryClientProvider>
   )
 }

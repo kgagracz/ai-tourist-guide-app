@@ -1,5 +1,5 @@
 type Location = {
-    attitude: number,
+    longitude: number,
     latitude: number
 }
 

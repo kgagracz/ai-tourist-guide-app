@@ -1,8 +1,9 @@
 import MapView, { Marker, Region } from 'react-native-maps'
 import { Dimensions } from 'react-native'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import useUserLocation from '../../../hooks/useUserLocation'
 import { parseLocationToRegion } from './Map.util'
+import { useMapContext } from '../../../context/MapContext'
 
 type MapProps = {
     fullScreen?: boolean
@@ -10,22 +11,22 @@ type MapProps = {
 
 const Map = ({ fullScreen }: MapProps) => {
   const { location, getLocation } = useUserLocation()
-  const [currentRegion, setCurrentRegion] = useState<Region | undefined>(undefined)
+  const { mapRegion, setMapRegion } = useMapContext()
   const screenHeight = Dimensions.get('window').height
   const map = useRef(null)
 
-  const onRegionChange = (region: Region) => setCurrentRegion(region)
+  const onRegionChange = (region: Region) => setMapRegion(region)
 
   useEffect(() => {
     getLocation()
-    setCurrentRegion(parseLocationToRegion(location))
+    setMapRegion(parseLocationToRegion(location))
   }, [])
 
   return (
     <MapView
       initialRegion={parseLocationToRegion(location)}
       ref={map}
-      region={currentRegion}
+      region={mapRegion}
       onRegionChangeComplete={onRegionChange}
       style={{ height: fullScreen ? screenHeight : 300 }}
     >
