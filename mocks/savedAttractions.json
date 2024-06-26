@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "name": "Zamek królewski na Wawelu",
+    "city": "Kraków",
+    "location": {
+      "attitude":  50.05412285410566,
+      "latitude": 19.935505942355537
+    }
+  }
+]
