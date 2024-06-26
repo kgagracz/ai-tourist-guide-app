@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { StyleSheet, Text, TextProps } from 'react-native'
 
-export const BoldText: React.FC<TextProps & {text: string}> = (props) => (
+export const BoldText: React.FC<PropsWithChildren<TextProps>> = (props) => (
   <Text style={styles.text} {...props}>
-    {props.text}
+    {props.children}
   </Text>
 )
 

@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TextProps } from 'react-native'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 
-export const NormalText: React.FC<TextProps & {text: string}> = (props) => (
+export const NormalText: React.FC<PropsWithChildren<TextProps>> = (props) => (
   <Text style={{ ...style.text }} {...props}>
-    {props.text}
+    {props.children}
   </Text>
 )
 
