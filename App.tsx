@@ -1,13 +1,15 @@
 import * as Font from 'expo-font'
 import { useState } from 'react'
 import AppLoading from 'expo-app-loading'
-import { NavigationContainer } from '@react-navigation/native'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Navigation } from './components/organisms/Navigation'
 
 const getFonts = () => Font.loadAsync({
   poppins: require('./assets/fonts/Poppins-Regular.ttf'),
   'poppins-bold': require('./assets/fonts/Poppins-Bold.ttf'),
 })
+
+const queryClient = new QueryClient()
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false)
@@ -22,8 +24,8 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
+    <QueryClientProvider client={queryClient}>
       <Navigation />
-    </NavigationContainer>
+    </QueryClientProvider>
   )
 }
