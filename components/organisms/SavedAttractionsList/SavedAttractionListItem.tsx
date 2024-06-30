@@ -6,8 +6,9 @@ import { SavedAttraction } from '../../../models/SavedAttraction'
 import { NormalText } from '../../atoms/NormalText'
 import { BoldText } from '../../atoms/BoldText'
 import { Button } from '../../atoms/Button'
-import { useMapContext } from '../../../context/MapContext'
+import { useMapContext } from '../../../context/Map/MapContext'
 import { parseLocationToRegion } from '../Map/Map.util'
+import { Marker } from '../../../models/Marker'
 
 type SavedAttractionListItemProps = {
     attraction: SavedAttraction
@@ -17,15 +18,24 @@ export const SavedAttractionListItem = ({ attraction }: SavedAttractionListItemP
   const navigation = useNavigation()
   const { t } = useTranslation()
   const { location, name, city } = attraction
-  const { setMapRegion } = useMapContext()
+  const { latitude, longitude } = location
+  const { setMapRegion, addMarker } = useMapContext()
 
   const onGoToAttractionButtonClick = () => {
     navigation.navigate(t('menuMap'))
     // @ts-ignore
     const region = parseLocationToRegion({
-      coords: { latitude: location.latitude, longitude: location.longitude },
+      coords: { latitude, longitude },
     })
-    console.log(region)
+    const marker: Marker = {
+      title: name,
+      description: city,
+      coordinate: {
+        latitude,
+        longitude,
+      },
+    }
+    addMarker(marker)
     setMapRegion(region)
   }
 

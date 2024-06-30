@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native'
 import { useEffect, useRef } from 'react'
 import useUserLocation from '../../../hooks/useUserLocation'
 import { parseLocationToRegion } from './Map.util'
-import { useMapContext } from '../../../context/MapContext'
+import { useMapContext } from '../../../context/Map/MapContext'
 
 type MapProps = {
     fullScreen?: boolean
@@ -11,7 +11,7 @@ type MapProps = {
 
 const Map = ({ fullScreen }: MapProps) => {
   const { location, getLocation } = useUserLocation()
-  const { mapRegion, setMapRegion } = useMapContext()
+  const { mapRegion, setMapRegion, markers } = useMapContext()
   const screenHeight = Dimensions.get('window').height
   const map = useRef(null)
 
@@ -37,6 +37,7 @@ const Map = ({ fullScreen }: MapProps) => {
         description="This is a description"
       />
       )}
+      {markers.map((marker) => (<Marker {...marker} />))}
     </MapView>
   )
 }
