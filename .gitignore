@@ -33,3 +33,10 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+/.idea/.gitignore
+/assets/images/cracow.jpg
+/.idea/jsLinters/eslint.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/tourist-app.iml
+/.idea/vcs.xml
