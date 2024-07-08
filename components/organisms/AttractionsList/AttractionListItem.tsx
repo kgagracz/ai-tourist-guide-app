@@ -1,13 +1,15 @@
 import { StyleSheet, View } from 'react-native'
 import Icon from '@expo/vector-icons/MaterialIcons'
+import { useTheme } from '@react-navigation/native'
 import { NormalText } from '../../atoms/NormalText'
 import { BoldText } from '../../atoms/BoldText'
 import { Button } from '../../atoms/Button'
 import { AttractionAction } from './AttractionList.Model'
 import { Attraction } from '../../../models/Attraction'
+import { ThemeType } from '../SchemeContext/SchemeProvider'
 
 type SavedAttractionListItemProps = {
-    attraction: Attraction
+  attraction: Attraction
   attractionMainAction?: AttractionAction
   attractionSubActions?: AttractionAction[]
 }
@@ -17,6 +19,8 @@ export const AttractionListItem = ({
   attractionSubActions,
   attractionMainAction,
 }: SavedAttractionListItemProps) => {
+  const { colors } = useTheme()
+  const styles = makeStyles(colors)
   const {
     name,
     city,
@@ -25,7 +29,7 @@ export const AttractionListItem = ({
   return (
     <View style={styles.container}>
       <View>
-        <BoldText>{name}</BoldText>
+        <BoldText style={styles.itemName}>{name}</BoldText>
         <NormalText>{city}</NormalText>
       </View>
       <View style={styles.iconsBox}>
@@ -48,8 +52,9 @@ export const AttractionListItem = ({
   )
 }
 
-const styles = StyleSheet.create({
+const makeStyles = (color: ThemeType) => StyleSheet.create({
   container: {
+    backgroundColor: color.backgroundColor,
     borderBottomWidth: 1,
     padding: 10,
     flex: 1,
@@ -57,6 +62,9 @@ const styles = StyleSheet.create({
     flexWrap: 'nowrap',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  itemName: {
+    color: color.text,
   },
   iconsBox: {
     flex: 1,

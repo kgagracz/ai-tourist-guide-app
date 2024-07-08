@@ -22,6 +22,7 @@ export const MapContextProvider = ({ children }: PropsWithChildren) => {
   const addMarker = (marker: Marker) => dispatchMarkers({ type: MarkerActionTypes.ADD_MARKER, payload: marker })
 
   return (
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
     <MapContext.Provider value={{
       mapRegion,
       setMapRegion,

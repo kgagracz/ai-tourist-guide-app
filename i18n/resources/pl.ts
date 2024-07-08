@@ -4,4 +4,5 @@ export default {
   menuSaved: 'Zapisane',
   menuVisited: 'Odwiedzone',
   menuSettings: 'Ustawienia',
+  darkMode: 'Ciemny motyw',
 }
