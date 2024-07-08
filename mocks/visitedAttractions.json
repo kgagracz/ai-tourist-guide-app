@@ -1,0 +1,20 @@
+[
+  {
+    "id": 2,
+    "name": "Pałac Kultury i Nauki",
+    "city": "Warszawa",
+    "location": {
+      "latitude": 52.2319581,
+      "longitude": 21.0067249
+    }
+  },
+  {
+    "id": 3,
+    "name": "Zamek Królewski",
+    "city": "Warszawa",
+    "location": {
+      "latitude": 52.2479599,
+      "longitude": 21.0135324
+    }
+  }
+]

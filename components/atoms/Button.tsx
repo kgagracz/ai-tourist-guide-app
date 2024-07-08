@@ -2,6 +2,6 @@ import { Button as RNButton, ButtonProps as RNButtonProps } from 'react-native-e
 
 type ButtonProps = RNButtonProps
 
-export const Button = ({ onPress, title, icon }: ButtonProps) => (
-  <RNButton onPress={onPress} title={title} icon={icon} />
+export const Button = (props: ButtonProps) => (
+  <RNButton {...props} />
 )

@@ -3,7 +3,7 @@ type Location = {
     latitude: number
 }
 
-export type SavedAttraction = {
+export type Attraction = {
     id: number,
     name: string,
     city: string,
