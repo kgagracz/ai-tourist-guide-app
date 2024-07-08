@@ -1,21 +1,36 @@
 import { View } from 'react-native'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import Icon from '@expo/vector-icons/MaterialIcons'
-import { getSavedAttractions } from '../../api/savedAttractions.api'
+import { getSavedAttractions, removeFromSavedAttractions } from '../../api/savedAttractions.api'
 import { AttractionList } from '../../components/organisms/AttractionsList/AttractionList'
 import { NormalText } from '../../components/atoms/NormalText'
 import { parseLocationToRegion } from '../../components/organisms/Map/Map.util'
 import { Marker } from '../../models/Marker'
 import { useMapContext } from '../../context/Map/MapContext'
 import { Attraction } from '../../models/Attraction'
+import { addToVisitedAttractions } from '../../api/visitedAttractions.api'
 
 export const SavedAttractions = () => {
+  const queryClient = useQueryClient()
   const { data: savedAttractions, isLoading } = useQuery({
     queryKey: ['savedAttractions'],
     queryFn: getSavedAttractions,
-  })
+  }, queryClient)
+  // todo - tutaj coś nie działa invalidateQueries. Po dodaniu do visited nie pobierają się visited.
+  const { mutateAsync: addToVisited } = useMutation({
+    mutationFn: (attraction: Attraction) => addToVisitedAttractions(attraction),
+    onSuccess: async () => queryClient.invalidateQueries({
+      queryKey: ['visitedAttractions', 'savedAttractions'],
+    }),
+  }, queryClient)
+  const { mutateAsync: removeFromSaved } = useMutation({
+    mutationFn: (attractionId: Attraction['id']) => removeFromSavedAttractions(attractionId),
+    onSuccess: async () => queryClient.invalidateQueries({
+      queryKey: ['savedAttractions'],
+    }),
+  }, queryClient)
   const navigation = useNavigation()
   const { addMarker, setMapRegion } = useMapContext()
   const { t } = useTranslation()
@@ -44,12 +59,13 @@ export const SavedAttractions = () => {
     setMapRegion(region)
   }
 
-  const onMarkVisitedButtonClick = (attraction: Attraction) => {
-    console.log(attraction)
+  const onMarkVisitedButtonClick = async (attraction: Attraction) => {
+    await addToVisited(attraction)
+    await removeFromSaved(attraction.id)
   }
 
-  const onRemoveFromSavedButtonClick = (attraction: Attraction) => {
-    console.log(attraction)
+  const onRemoveFromSavedButtonClick = async (attraction: Attraction) => {
+    await removeFromSaved(attraction.id)
   }
 
   const attractionActions = {

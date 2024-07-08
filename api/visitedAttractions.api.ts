@@ -1,11 +1,13 @@
 import { Attraction } from '../models/Attraction'
-import visitedAttractionsMock from '../mocks/visitedAttractions.json'
+import { get, post } from '../services/communication'
+
+export const VISITED_ATTRACTION_API_URL = '/visited'
 
 export const getVisitedAttractions = async (): Promise<Attraction[] | undefined> => {
-  const res = new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(visitedAttractionsMock)
-    }, 300)
-  })
-  return res as Promise<Attraction[]>
+  const res = await get(VISITED_ATTRACTION_API_URL)
+  return res ? JSON.parse(res) as Promise<Attraction[]> : []
+}
+
+export const addToVisitedAttractions = async (attraction: Attraction) => {
+  await post(VISITED_ATTRACTION_API_URL, attraction)
 }
