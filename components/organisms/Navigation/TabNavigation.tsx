@@ -5,13 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home } from '../../../screens/Home/Home';
 import { SavedAttractions } from '../../../screens/SavedAttractions/SavedAttractions';
 import SettingsPage from '../Settings/SettingsPage';
-import { useTheme} from "../ThemeContext/ThemeProvider";
+import { useScheme} from "../SchemeContext/SchemeProvider";
 
 const Tab = createBottomTabNavigator();
 
 export const TabNavigation = () => {
     const { t } = useTranslation();
-    const { theme } = useTheme();
+    const { theme } = useScheme();
 
     return (
         <Tab.Navigator

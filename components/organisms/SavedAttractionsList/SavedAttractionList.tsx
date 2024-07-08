@@ -2,17 +2,20 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SavedAttraction } from '../../../models/SavedAttraction';
 import { SavedAttractionListItem } from './SavedAttractionListItem';
-import { useTheme } from '../ThemeContext/ThemeProvider';
+import {ThemeType, useScheme} from '../SchemeContext/SchemeProvider';
+import {useTheme} from "@react-navigation/native";
 
 type SavedAttractionListProps = {
     savedAttractions: SavedAttraction[]
 }
 
 export const SavedAttractionList = ({ savedAttractions }: SavedAttractionListProps) => {
-    const { theme } = useTheme();
+    const { scheme } = useScheme()
+    const { colors } = useTheme()
 
+    const styles = makeStyles(colors)
     return (
-        <ScrollView contentContainerStyle={styles.scrollView} style={{ backgroundColor: theme === 'dark' ? '#333' : '#FFF' }}>
+        <ScrollView contentContainerStyle={styles.scrollView} style={ styles.container }>
             {savedAttractions.map((attraction) => (
                 <SavedAttractionListItem
                     key={attraction.id}
@@ -23,8 +26,14 @@ export const SavedAttractionList = ({ savedAttractions }: SavedAttractionListPro
     );
 }
 
-const styles = StyleSheet.create({
-    scrollView: {
-        flexGrow: 1,
-    },
-});
+const makeStyles = (color: ThemeType) => {
+    return StyleSheet.create({
+        container: {
+          backgroundColor: color.backgroundColor,
+        },
+        scrollView: {
+            flexGrow: 1,
+        },
+    });
+}
+
