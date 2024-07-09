@@ -1,4 +1,4 @@
-## Struktura projektu
+## Project structure
 
 Feature-Based Project Structure
 
