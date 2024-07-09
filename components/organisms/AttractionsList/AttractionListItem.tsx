@@ -39,6 +39,7 @@ export const AttractionListItem = ({
             icon={action.icon}
             style={{ backgroundColor: 'red' }}
             type="clear"
+            key={action.onPress?.toString()}
           />
         ))}
         {attractionMainAction && (
