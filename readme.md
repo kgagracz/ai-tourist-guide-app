@@ -1,3 +1,41 @@
+# Tourist guide
+An application for tourists with a map and saved places.
+
+## FUNCTIONAL REQUIREMENTS
+
+### Main View (Map)
+Upon launching the application, the user sees the main screen. The majority of this screen is occupied by a map displaying the user's current location and pins marking nearby tourist attractions. Attractions that the user has already visited are distinguished by a different color. In the upper corner, there is a magnifying glass icon that leads to the attractions list view. Clicking on a tourist attraction opens the attraction details view.
+
+### Tourist Attraction Details View
+This view shows a description of the tourist attraction and buttons for:
+
+- **Add to my attractions:** allows the user to save the attraction.
+- **Add to visited attractions:** saves the attraction on the list of visited attractions.
+- **Navigate:** starts the route to the destination.
+- **Search on the internet:** opens a browser with the attraction's name.
+
+ Visited attractions are appropriately marked in this view.
+
+### Attractions List View
+The attractions list view occupies the entire screen of the application and contains a list of all tourist attractions available in the application. At the top of the screen, there is a search bar that allows users to search for attractions by city name.
+
+### Saved Attractions View
+This view contains the attractions saved by the user. Clicking on any of them takes the user to the tourist attraction details view. Users can add a note to each attraction on the list.
+
+### Visited Attractions View
+This view contains the attractions visited by the user. Clicking on any of them takes the user to the tourist attraction details view. Users can add a note to each attraction on the list.
+
+### Settings
+An option to enable dark mode.
+
+### Navigation
+A bottom navigation bar with links to other views of the application:
+
+- Map
+- Saved
+- Visited
+- Settings
+
 ## Project structure
 
 Feature-Based Project Structure
