@@ -1,7 +1,7 @@
 # Tourist guide
 An application for tourists with a map and saved places.
 
-## FUNCTIONAL REQUIREMENTS
+## Functional requirements
 
 ### Main View (Map)
 Upon launching the application, the user sees the main screen. The majority of this screen is occupied by a map displaying the user's current location and pins marking nearby tourist attractions. Attractions that the user has already visited are distinguished by a different color. In the upper corner, there is a magnifying glass icon that leads to the attractions list view. Clicking on a tourist attraction opens the attraction details view.
