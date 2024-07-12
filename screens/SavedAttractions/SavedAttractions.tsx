@@ -40,6 +40,7 @@ export const SavedAttractions = () => {
       location,
       name,
       city,
+      id,
     } = attraction
     const { latitude, longitude } = location
     navigation.navigate(t('menuMap'))
@@ -48,6 +49,7 @@ export const SavedAttractions = () => {
       coords: { latitude, longitude },
     })
     const marker: Marker = {
+      attractionId: id,
       title: name,
       description: city,
       coordinate: {

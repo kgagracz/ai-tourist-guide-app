@@ -15,3 +15,8 @@ export const removeFromSavedAttractions = async (attractionId: number) => {
   const newAttractions = allAttractions.filter((attraction) => attraction.id !== attractionId)
   await saveToAsyncStorage(SAVED_ATTRACTIONS_API_URL, newAttractions)
 }
+
+export const addToSavedAttractions = async (attraction: Attraction) => {
+  console.log('addToSavedAttractions', attraction)
+  // todo
+}
