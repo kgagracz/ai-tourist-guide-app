@@ -1,9 +1,18 @@
 import {
-  createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useReducer, useState,
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
 } from 'react'
 import { Region } from 'react-native-maps'
 import { Marker } from '../../models/Marker'
 import { MarkerActionTypes, markerReducer } from './markerReducer'
+import { getAllAttractions } from '../../api/attraction.api'
+import { parseAttractionToMarker } from '../../services/marker'
 
 type MapContextType = {
     mapRegion: Region | undefined
@@ -21,8 +30,17 @@ export const MapContextProvider = ({ children }: PropsWithChildren) => {
 
   const addMarker = (marker: Marker) => dispatchMarkers({ type: MarkerActionTypes.ADD_MARKER, payload: marker })
 
+  const fetchAllMarkers = async () => {
+    const attractions = await getAllAttractions()
+    const markers = attractions.map(parseAttractionToMarker)
+    dispatchMarkers({ type: MarkerActionTypes.SET_MARKERS, payload: markers })
+  }
+
+  useEffect(() => {
+    fetchAllMarkers()
+  }, [])
+
   return (
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
     <MapContext.Provider value={{
       mapRegion,
       setMapRegion,
