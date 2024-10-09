@@ -13,11 +13,13 @@ import { ThemeType } from '../../components/organisms/SchemeContext/SchemeProvid
 import { addToVisitedAttractions } from '../../api/visitedAttractions.api'
 import { Attraction } from '../../models/Attraction'
 import { addToSavedAttractions } from '../../api/savedAttractions.api'
+import useToast from '../../hooks/useToast'
 
 export const AttractionDetails = forwardRef<BottomSheetModal>((_, ref) => {
   const snapPoints = ['25%']
   const [attractionIdState, setAttractionIdState] = useState<number | null>(null)
   const queryClient = useQueryClient()
+  const { showToast } = useToast()
   const { data: attraction, isLoading } = useQuery({
     queryKey: ['attractions', attractionIdState],
     queryFn: () => getAttraction(attractionIdState),
@@ -26,14 +28,16 @@ export const AttractionDetails = forwardRef<BottomSheetModal>((_, ref) => {
     mutationKey: ['attractions', 'visitedAttractions'],
     mutationFn: (attractionToAdd: Attraction) => addToVisitedAttractions(attractionToAdd),
     onSuccess: () => {
-      console.log('success')
+      queryClient.invalidateQueries({ queryKey: ['visitedAttractions'] })
+      showToast('Oznaczono atrakcję jako odwiedzoną.')
     },
   }, queryClient)
   const { mutateAsync: addToSavedMutate } = useMutation({
     mutationKey: ['attractions', 'savedAttractions'],
     mutationFn: (attractionToAdd: Attraction) => addToSavedAttractions(attractionToAdd),
     onSuccess: () => {
-      console.log('success')
+      queryClient.invalidateQueries({ queryKey: ['savedAttractions'] })
+      showToast('Zapisano atrakcję.')
     },
   }, queryClient)
   const theme = useTheme()

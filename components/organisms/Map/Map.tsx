@@ -28,7 +28,7 @@ const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
 
   return (
     <MapView
-      initialRegion={parseLocationToRegion(location)}
+      initialRegion={mapRegion}
       ref={map}
       region={mapRegion}
       onRegionChangeComplete={onRegionChange}
@@ -36,9 +36,10 @@ const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
     >
       {location && (
       <Marker
+        /* eslint-disable react/jsx-curly-brace-presence */
+        pinColor={'gold'}
         coordinate={location?.coords}
-        title="Yor are here"
-        description="This is a description"
+        title="Jesteś tutaj"
       />
       )}
       {markers.map((marker) => {

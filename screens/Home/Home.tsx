@@ -14,7 +14,6 @@ export function Home() {
 
   const openModal = (_: MarkerPressEvent, marker: Marker) => {
     attractionDetailsSheet.current?.present(marker)
-    console.log('test')
     // @ts-ignore
     // setMapRegion((prev) => ({
     //   ...prev,

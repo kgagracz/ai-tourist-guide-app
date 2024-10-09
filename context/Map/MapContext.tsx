@@ -24,7 +24,12 @@ type MapContextType = {
 const MapContext = createContext<MapContextType | null>(null)
 
 export const MapContextProvider = ({ children }: PropsWithChildren) => {
-  const [mapRegion, setMapRegion] = useState<Region>()
+  const [mapRegion, setMapRegion] = useState<Region>({
+    latitudeDelta: 10,
+    longitudeDelta: 10,
+    longitude: 21.013982680342046,
+    latitude: 52.23055703207284,
+  })
   // @ts-ignore
   const [markers, dispatchMarkers] = useReducer(markerReducer, [])
 
