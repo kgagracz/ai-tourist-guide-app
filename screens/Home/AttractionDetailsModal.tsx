@@ -1,11 +1,12 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { forwardRef, useMemo, useState } from 'react'
-import { Linking, StyleSheet, View } from 'react-native'
+import {
+  Linking, ScrollView, StyleSheet, View,
+} from 'react-native'
 import Icon from '@expo/vector-icons/MaterialIcons'
 import { useTheme } from '@react-navigation/native'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Marker } from '../../models/Marker'
-import { getAttraction } from '../../api/attraction.api'
 import { BoldText } from '../../components/atoms/BoldText'
 import { NormalText } from '../../components/atoms/NormalText'
 import { Button } from '../../components/atoms/Button'
@@ -14,16 +15,16 @@ import { addToVisitedAttractions } from '../../api/visitedAttractions.api'
 import { Attraction } from '../../models/Attraction'
 import { addToSavedAttractions } from '../../api/savedAttractions.api'
 import useToast from '../../hooks/useToast'
+import { useGetAttractionIntro } from '../../api/hooks/useGetAttractionIntro'
 
-export const AttractionDetails = forwardRef<BottomSheetModal>((_, ref) => {
-  const snapPoints = ['25%']
-  const [attractionIdState, setAttractionIdState] = useState<number | null>(null)
+export const AttractionDetailsModal = forwardRef<BottomSheetModal>((_, ref) => {
+  const snapPoints = ['25%', '50%', '75%']
+  const [attractionName, setAttractionName] = useState<string | null>(null)
   const queryClient = useQueryClient()
   const { showToast } = useToast()
-  const { data: attraction, isLoading } = useQuery({
-    queryKey: ['attractions', attractionIdState],
-    queryFn: () => getAttraction(attractionIdState),
-  })
+
+  // todo - handle attraction === undefined
+  const { data: attractionIntro } = useGetAttractionIntro(attractionName ?? '', !!attractionName)
   const { mutateAsync: addToVisitedMutate } = useMutation({
     mutationKey: ['attractions', 'visitedAttractions'],
     mutationFn: (attractionToAdd: Attraction) => addToVisitedAttractions(attractionToAdd),
@@ -32,6 +33,7 @@ export const AttractionDetails = forwardRef<BottomSheetModal>((_, ref) => {
       showToast('Oznaczono atrakcję jako odwiedzoną.')
     },
   }, queryClient)
+  console.log(attractionIntro)
   const { mutateAsync: addToSavedMutate } = useMutation({
     mutationKey: ['attractions', 'savedAttractions'],
     mutationFn: (attractionToAdd: Attraction) => addToSavedAttractions(attractionToAdd),
@@ -54,7 +56,7 @@ export const AttractionDetails = forwardRef<BottomSheetModal>((_, ref) => {
           title, description, coordinate, attractionId,
         } = data?.data as unknown as Marker
 
-        setAttractionIdState(attractionId ?? null)
+        setAttractionName(title ?? null)
 
         const onAddToVisitedClick = async () => {
           if (!attraction) { return }
@@ -79,10 +81,10 @@ export const AttractionDetails = forwardRef<BottomSheetModal>((_, ref) => {
 
         return (
           <View style={styles.attractionDetailsContainer}>
-            <View>
+            <ScrollView>
               <BoldText>{title}</BoldText>
-              <NormalText>{description}</NormalText>
-            </View>
+              <NormalText>{attractionIntro}</NormalText>
+            </ScrollView>
             <View style={styles.iconsContainer}>
               <Button
                 style={styles.button}

@@ -1,18 +1,12 @@
 import {
-  createContext,
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
+  createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useReducer, useState,
 } from 'react'
 import { Region } from 'react-native-maps'
 import { Marker } from '../../models/Marker'
 import { MarkerActionTypes, markerReducer } from './markerReducer'
-import { getAllAttractions } from '../../api/attraction.api'
 import { parseAttractionToMarker } from '../../services/marker'
+import { getAttractionsByCity } from '../../api/overpass/getAttractionsByCity'
+import { getAttractionsByRegion } from '../../api/overpass/getAttractionsByRegion'
 
 type MapContextType = {
     mapRegion: Region | undefined
@@ -25,8 +19,8 @@ const MapContext = createContext<MapContextType | null>(null)
 
 export const MapContextProvider = ({ children }: PropsWithChildren) => {
   const [mapRegion, setMapRegion] = useState<Region>({
-    latitudeDelta: 10,
-    longitudeDelta: 10,
+    latitudeDelta: 0.02,
+    longitudeDelta: 0.02,
     longitude: 21.013982680342046,
     latitude: 52.23055703207284,
   })
@@ -36,14 +30,21 @@ export const MapContextProvider = ({ children }: PropsWithChildren) => {
   const addMarker = (marker: Marker) => dispatchMarkers({ type: MarkerActionTypes.ADD_MARKER, payload: marker })
 
   const fetchAllMarkers = async () => {
-    const attractions = await getAllAttractions()
+    const attractions = await getAttractionsByCity()
     const markers = attractions.map(parseAttractionToMarker)
     dispatchMarkers({ type: MarkerActionTypes.SET_MARKERS, payload: markers })
   }
+  const onRegionChange = async (region: Region) => {
+    setMapRegion(region)
+    if (region.latitudeDelta > 0.2 || region.longitudeDelta > 0.16) {
+      return
+    }
 
-  useEffect(() => {
-    fetchAllMarkers()
-  }, [])
+    const attractions = await getAttractionsByRegion(region)
+    const markers = attractions?.map(parseAttractionToMarker)
+    console.log(markers)
+    dispatchMarkers({ type: MarkerActionTypes.SET_MARKERS, payload: markers ?? [] })
+  }
 
   return (
     <MapContext.Provider value={{
@@ -51,6 +52,7 @@ export const MapContextProvider = ({ children }: PropsWithChildren) => {
       setMapRegion,
       markers,
       addMarker,
+      onRegionChange,
     }}
     >
       {children}
