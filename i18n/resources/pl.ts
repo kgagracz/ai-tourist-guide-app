@@ -5,4 +5,5 @@ export default {
   menuVisited: 'Odwiedzone',
   menuSettings: 'Ustawienia',
   darkMode: 'Ciemny motyw',
+  errorOccurred: 'Wystąpił błąd',
 }

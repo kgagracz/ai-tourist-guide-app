@@ -5,4 +5,5 @@ export default {
   menuVisited: 'Visited',
   menuSettings: 'Settings',
   darkMode: 'Dark mode',
+  errorOccurred: 'An error occurred',
 }
