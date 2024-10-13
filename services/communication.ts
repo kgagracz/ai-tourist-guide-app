@@ -19,3 +19,10 @@ export const post = async (url: string, content: unknown) => {
   }
   await mergeItemToAsyncStorage(url, content)
 }
+
+export const prepareQueryParamsFromObject = (object: Record<string, any>) => {
+  const params = new URLSearchParams()
+  // todo handle all value types
+  Object.entries(object).map((entry) => params.append(...entry))
+  return params
+}

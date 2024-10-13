@@ -1,8 +1,7 @@
-import MapView, {
-  Callout, Marker, MarkerPressEvent, Region,
-} from 'react-native-maps'
+import MapView, { Callout, Marker, MarkerPressEvent } from 'react-native-maps'
 import { Dimensions, Text, TouchableHighlight } from 'react-native'
 import { useEffect, useRef } from 'react'
+import { useTheme } from '@react-navigation/native'
 import useUserLocation from '../../../hooks/useUserLocation'
 import { parseLocationToRegion } from './Map.util'
 import { useMapContext } from '../../../context/Map/MapContext'
@@ -15,11 +14,12 @@ type MapProps = {
 
 const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
   const { location, getLocation } = useUserLocation()
-  const { mapRegion, setMapRegion, markers } = useMapContext()
+  const {
+    mapRegion, setMapRegion, markers, onRegionChange,
+  } = useMapContext()
+  const { theme } = useTheme()
   const screenHeight = Dimensions.get('window').height
   const map = useRef(null)
-
-  const onRegionChange = (region: Region) => setMapRegion(region)
 
   useEffect(() => {
     getLocation()
@@ -28,17 +28,19 @@ const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
 
   return (
     <MapView
-      initialRegion={parseLocationToRegion(location)}
+      initialRegion={mapRegion}
       ref={map}
-      region={mapRegion}
+      // region={mapRegion}
       onRegionChangeComplete={onRegionChange}
       style={{ height: fullScreen ? screenHeight : 300 }}
+      userInterfaceStyle={theme}
     >
       {location && (
       <Marker
+        /* eslint-disable react/jsx-curly-brace-presence */
+        pinColor={'gold'}
         coordinate={location?.coords}
-        title="Yor are here"
-        description="This is a description"
+        title="Jesteś tutaj"
       />
       )}
       {markers.map((marker) => {
