@@ -15,18 +15,14 @@ export const getAttractionsByRegion = async (region: Region, signal: AbortSignal
   const overpassApiUrl = `${OVERPASS_API_URL}/interpreter`
   const body = `data=${qry}`
   return axios.post(overpassApiUrl, body, { signal })
-    .then((response) => {
-      console.log('pobieranie zakończone')
-      const res = response.data.elements.filter(filterAttractions).map((attraction) => ({
-        id: attraction.id,
-        name: attraction.tags.name,
-        location: {
-          longitude: attraction.lon,
-          latitude: attraction.lat,
-        },
-      })) as Attraction[]
-      return res
-    })
+    .then((response) => response.data.elements.filter(filterAttractions).map((attraction) => ({
+      id: attraction.id,
+      name: attraction.tags.name,
+      location: {
+        longitude: attraction.lon,
+        latitude: attraction.lat,
+      },
+    })) as Attraction[])
     .catch((error) => {
       console.log('error', error)
     })

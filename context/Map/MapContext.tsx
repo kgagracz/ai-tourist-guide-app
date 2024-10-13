@@ -42,7 +42,6 @@ export const MapContextProvider = ({ children }: PropsWithChildren) => {
 
     const attractions = await getAttractionsByRegion(region)
     const markers = attractions?.map(parseAttractionToMarker)
-    console.log(markers)
     dispatchMarkers({ type: MarkerActionTypes.SET_MARKERS, payload: markers ?? [] })
   }
 

@@ -40,7 +40,7 @@ export default function App() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient} contextSharing>
       <MapContextProvider>
         <SchemeProvider>
           <GestureHandlerRootView>
