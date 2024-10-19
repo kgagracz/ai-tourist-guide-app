@@ -8,6 +8,7 @@ import { SavedAttractions } from '../../../screens/SavedAttractions/SavedAttract
 import SettingsPage from '../Settings/SettingsPage'
 import { useScheme } from '../SchemeContext/SchemeProvider'
 import { VisitedAttractions } from '../../../screens/VisitedAttractions/VisitedAttractions'
+import { HomeViewHeader } from '../HomeViewHeader'
 
 const Tab = createBottomTabNavigator()
 
@@ -31,6 +32,7 @@ export const TabNavigation = () => {
         component={Home}
         options={{
           tabBarIcon: ({ color }) => <Icon name="location-on" size={25} color={color} />,
+          header: HomeViewHeader,
         }}
       />
       <Tab.Screen
