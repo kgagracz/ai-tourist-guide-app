@@ -1,6 +1,6 @@
 import MapView, { Callout, Marker, MarkerPressEvent } from 'react-native-maps'
 import { Dimensions, Text, TouchableHighlight } from 'react-native'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useTheme } from '@react-navigation/native'
 import useUserLocation from '../../../hooks/useUserLocation'
 import { parseLocationToRegion } from './Map.util'
@@ -15,23 +15,22 @@ type MapProps = {
 const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
   const { location, getLocation } = useUserLocation()
   const {
-    mapRegion, setMapRegion, markers, onRegionChange,
+    moveMapToRegion, markers, fetchMarkersByRegion, mapRef,
   } = useMapContext()
   const { theme } = useTheme()
   const screenHeight = Dimensions.get('window').height
-  const map = useRef(null)
 
   useEffect(() => {
     getLocation()
-    setMapRegion(parseLocationToRegion(location))
+    const userRegion = parseLocationToRegion(location)
+    if (!userRegion) { return }
+    moveMapToRegion(userRegion)
   }, [])
 
   return (
     <MapView
-      initialRegion={mapRegion}
-      ref={map}
-      // region={mapRegion}
-      onRegionChangeComplete={onRegionChange}
+      ref={mapRef}
+      onRegionChangeComplete={fetchMarkersByRegion}
       style={{ height: fullScreen ? screenHeight : 300 }}
       userInterfaceStyle={theme}
     >
