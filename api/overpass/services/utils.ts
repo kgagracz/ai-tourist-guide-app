@@ -20,7 +20,7 @@ export const parseOverpassElementToAttraction = (element: ElementWithLocation): 
 })
 
 export const parseOverpassResponse = (
-  response: AxiosResponse<OverpassResponse>,
-): Attraction[] => (response.data.elements
+  response?: AxiosResponse<OverpassResponse>,
+): Attraction[] => ((response?.data.elements ?? [])
   .filter(filterOverpassElements) as ElementWithLocation[])
   .map(parseOverpassElementToAttraction)

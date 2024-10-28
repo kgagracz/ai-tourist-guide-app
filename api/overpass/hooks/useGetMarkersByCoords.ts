@@ -3,10 +3,11 @@ import { Region } from 'react-native-maps'
 import { AxiosResponse } from 'axios'
 import { getAttractionsByRegion } from '../services/getAttractionsByRegion'
 import { GET_ATTRACTIONS_BY_COORDS } from '../queryKeys'
-import { parseOverpassResponse } from '../services/utils'
 import { OverpassResponse } from '../models/OverpassResponse'
+import { parseAttractionsToMarkers } from '../../../services/marker'
+import { parseOverpassResponse } from '../services/utils'
 
-export const useGetAttractionsByCoords = (
+export const useGetMarkersByCoords = (
   onSuccess?: (data: AxiosResponse<OverpassResponse>) => void,
 ) => {
   const query = useMutation({
@@ -17,6 +18,6 @@ export const useGetAttractionsByCoords = (
 
   return {
     ...query,
-    data: parseOverpassResponse(query?.data),
+    data: parseAttractionsToMarkers(parseOverpassResponse(query?.data)),
   }
 }

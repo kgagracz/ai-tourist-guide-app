@@ -9,9 +9,12 @@ const prepareOverpassQuery = (coords: Region) => {
   return `[out:json][timeout:26];nwr["tourism"="attraction"](${coordsBoundary});out geom;`
 }
 
-export const getAttractionsByRegion = async (region: Region, signal: AbortSignal) => {
+export const getAttractionsByRegion = async (region: Region | null) => {
+  if (!region) throw new Error('No region defined')
+
   const qry = encodeURIComponent(prepareOverpassQuery(region))
   const overpassApiUrl = `${OVERPASS_API_URL}/interpreter`
   const body = `data=${qry}`
-  return axios.post<OverpassResponse>(overpassApiUrl, body, { signal })
+
+  return axios.post<OverpassResponse>(overpassApiUrl, body)
 }
