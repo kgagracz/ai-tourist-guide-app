@@ -3,11 +3,12 @@ import React from 'react'
 import Icon from '@expo/vector-icons/MaterialIcons'
 import { useTranslation } from 'react-i18next'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Home } from '../../../screens/Home/Home'
 import { SavedAttractions } from '../../../screens/SavedAttractions/SavedAttractions'
 import SettingsPage from '../Settings/SettingsPage'
 import { useScheme } from '../SchemeContext/SchemeProvider'
 import { VisitedAttractions } from '../../../screens/VisitedAttractions/VisitedAttractions'
+import { HomeViewHeader } from '../HomeViewHeader'
+import { StackNavigation } from './StackNavigation'
 
 const Tab = createBottomTabNavigator()
 
@@ -22,15 +23,17 @@ export const TabNavigation = () => {
         tabBarStyle: {
           backgroundColor: scheme === 'dark' ? '#333' : '#FFF',
         },
-        tabBarActiveTintColor: scheme === 'dark' ? '#FFF' : '#000',
+        tabBarActiveTintColor: scheme === 'dark' ? '#FFF' : '#0 00',
         tabBarInactiveTintColor: scheme === 'dark' ? '#888' : '#888',
       }}
     >
       <Tab.Screen
-        name={t('menuMap')}
-        component={Home}
+        name="Home"
+        component={StackNavigation}
         options={{
           tabBarIcon: ({ color }) => <Icon name="location-on" size={25} color={color} />,
+          header: HomeViewHeader,
+          headerTransparent: true,
         }}
       />
       <Tab.Screen

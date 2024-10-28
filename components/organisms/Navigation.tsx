@@ -1,13 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { TabNavigation } from './Navigation/TabNavigation'
-import { LightTheme, DarkTheme, useScheme } from './SchemeContext/SchemeProvider'
+import { DarkTheme, LightTheme, useScheme } from './SchemeContext/SchemeProvider'
+import { MapSearchContextProvider } from '../../context/MapSearchContext'
 
 export const Navigation = () => {
   const { scheme } = useScheme()
 
   return (
     <NavigationContainer theme={scheme === 'dark' ? DarkTheme : LightTheme}>
-      <TabNavigation />
+      {/* todo - maybe exists better solution than context */}
+      <MapSearchContextProvider>
+        <TabNavigation />
+      </MapSearchContextProvider>
     </NavigationContainer>
   )
 }

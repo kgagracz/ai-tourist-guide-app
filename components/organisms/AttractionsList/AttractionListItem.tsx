@@ -1,4 +1,6 @@
-import { StyleSheet, View } from 'react-native'
+import {
+  GestureResponderEvent, StyleSheet, TouchableOpacity, View,
+} from 'react-native'
 import Icon from '@expo/vector-icons/MaterialIcons'
 import { useTheme } from '@react-navigation/native'
 import { NormalText } from '../../atoms/NormalText'
@@ -8,8 +10,12 @@ import { AttractionAction } from './AttractionList.Model'
 import { Attraction } from '../../../models/Attraction'
 import { ThemeType } from '../SchemeContext/SchemeProvider'
 
+export type AttractionListItem = Attraction & {
+  onPress?: (e: GestureResponderEvent, attraction: Attraction) => void
+}
+
 type SavedAttractionListItemProps = {
-  attraction: Attraction
+  attraction: AttractionListItem
   attractionMainAction?: AttractionAction
   attractionSubActions?: AttractionAction[]
 }
@@ -26,8 +32,10 @@ export const AttractionListItem = ({
     city,
   } = attraction
 
+  const onAttractionPress = (e: GestureResponderEvent) => attraction.onPress?.(e, attraction)
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onAttractionPress} style={styles.container}>
       <View>
         <BoldText style={styles.itemName}>{name}</BoldText>
         <NormalText>{city}</NormalText>
@@ -49,7 +57,7 @@ export const AttractionListItem = ({
         />
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 

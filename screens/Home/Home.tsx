@@ -7,6 +7,7 @@ import Map from '../../components/organisms/Map/Map'
 import { AttractionDetailsModal } from './AttractionDetailsModal'
 import { Marker } from '../../models/Marker'
 import { useMapContext } from '../../context/Map/MapContext'
+import { Layout } from '../../components/organisms/Layout'
 
 export function Home() {
   const attractionDetailsSheet = useRef<BottomSheetModal | null>(null)
@@ -23,11 +24,11 @@ export function Home() {
   }
 
   return (
-    <>
+    <Layout>
       <View>
         <Map fullScreen onMarkerPress={openModal} />
       </View>
       <AttractionDetailsModal ref={attractionDetailsSheet} />
-    </>
+    </Layout>
   )
 }
