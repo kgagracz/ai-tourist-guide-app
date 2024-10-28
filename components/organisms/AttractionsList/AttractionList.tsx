@@ -1,5 +1,4 @@
 import { ScrollView } from 'react-native'
-import { AttractionListItem } from './AttractionListItem'
 import { AttractionAction } from './AttractionList.Model'
 import { Attraction } from '../../../models/Attraction'
 

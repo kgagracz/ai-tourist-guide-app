@@ -5,8 +5,8 @@ import MapView, { Region } from 'react-native-maps'
 import { Marker } from '../../models/Marker'
 import { MarkerActionTypes, markerReducer } from './markerReducer'
 import { parseAttractionToMarker } from '../../services/marker'
-import { getAttractionsByCity } from '../../api/overpass/getAttractionsByCity'
-import { getAttractionsByRegion } from '../../api/overpass/getAttractionsByRegion'
+import { getAttractionsByCity } from '../../api/overpass/services/getAttractionsByCity'
+import { getAttractionsByRegion } from '../../api/overpass/services/getAttractionsByRegion'
 
 type MapContextType = {
     moveMapToRegion: (region: Region) => void

@@ -10,12 +10,12 @@ import { AttractionAction } from './AttractionList.Model'
 import { Attraction } from '../../../models/Attraction'
 import { ThemeType } from '../SchemeContext/SchemeProvider'
 
-export type AttractionListItem = Attraction & {
+export type AttractionItemInList = Attraction & {
   onPress?: (e: GestureResponderEvent, attraction: Attraction) => void
 }
 
-type SavedAttractionListItemProps = {
-  attraction: AttractionListItem
+export type AttractionListItemProps = {
+  attraction: AttractionItemInList
   attractionMainAction?: AttractionAction
   attractionSubActions?: AttractionAction[]
 }
@@ -24,7 +24,7 @@ export const AttractionListItem = ({
   attraction,
   attractionSubActions,
   attractionMainAction,
-}: SavedAttractionListItemProps) => {
+}: AttractionListItemProps) => {
   const { colors } = useTheme()
   const styles = makeStyles(colors)
   const {

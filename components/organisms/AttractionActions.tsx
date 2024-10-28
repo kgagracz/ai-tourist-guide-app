@@ -5,8 +5,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from '../atoms/Button'
 import { ThemeType } from './SchemeContext/SchemeProvider'
 import { Attraction } from '../../models/Attraction'
-import { addToVisitedAttractions } from '../../api/visitedAttractions.api'
-import { addToSavedAttractions } from '../../api/savedAttractions.api'
+import { addToVisitedAttractions } from '../../api/attractions/services/visitedAttractions.api'
+import { addToSavedAttractions } from '../../api/attractions/services/savedAttractions.api'
 import useToast from '../../hooks/useToast'
 
 type AttractionActionsProps = {

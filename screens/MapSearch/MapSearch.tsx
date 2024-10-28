@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 import { useMapSearchContext } from '../../context/MapSearchContext'
-import { useGetAttractionsByName } from '../../api/hooks/useGetAttractionsByName'
+import { useGetAttractionsByName } from '../../api/overpass/hooks/useGetAttractionsByName'
 import { AttractionList } from '../../components/organisms/AttractionsList/AttractionList'
 import Loader from '../../components/atoms/Loader'
 import { NormalText } from '../../components/atoms/NormalText'
