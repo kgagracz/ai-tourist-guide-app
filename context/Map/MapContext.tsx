@@ -20,11 +20,13 @@ export const MapContextProvider = ({ children }: PropsWithChildren) => {
   // @ts-ignore
   const [markers, dispatchMarkers] = useReducer(markerReducer, [])
 
+  // @ts-ignore
   const addMarker = (marker: Marker) => dispatchMarkers({
     type: MarkerActionTypes.ADD_MARKER,
     payload: marker,
   })
 
+  // @ts-ignore
   const setMarkers = (markers: Marker[]) => dispatchMarkers({
     type: MarkerActionTypes.SET_MARKERS,
     payload: markers ?? [],
