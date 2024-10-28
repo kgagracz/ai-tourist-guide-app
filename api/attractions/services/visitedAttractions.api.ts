@@ -1,5 +1,5 @@
-import { Attraction } from '../models/Attraction'
-import { get, post } from '../services/communication'
+import { Attraction } from '../../../models/Attraction'
+import { get, post } from '../../../services/communication'
 
 export const VISITED_ATTRACTION_API_URL = '/visited'
 

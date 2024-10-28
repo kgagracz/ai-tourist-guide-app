@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getAttractionIntro } from '../attractions/getAttractionIntro'
-import useToast from '../../hooks/useToast'
+import { getAttractionIntro } from '../services/getAttractionIntro'
+import useToast from '../../../hooks/useToast'
+import { GET_ATTRACTION_INTRO } from '../queryKeys'
 
 export const useGetAttractionIntro = (attractionName: string, enabled: boolean) => {
   const toast = useToast()
@@ -10,7 +11,7 @@ export const useGetAttractionIntro = (attractionName: string, enabled: boolean) 
 
   const query = useQuery({
     queryFn: () => getAttractionIntro(attractionName),
-    queryKey: [getAttractionIntro, attractionName],
+    queryKey: [GET_ATTRACTION_INTRO, attractionName],
     select: (data) => data.data.message,
     enabled,
   })

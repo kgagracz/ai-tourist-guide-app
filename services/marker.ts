@@ -10,3 +10,5 @@ export const parseAttractionToMarker = (attraction: Attraction): Marker => ({
     longitude: attraction.location.longitude,
   },
 })
+
+export const parseAttractionsToMarkers = (attractions: Attraction[]): Marker[] => attractions.map(parseAttractionToMarker)

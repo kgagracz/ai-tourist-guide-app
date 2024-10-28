@@ -3,14 +3,14 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import Icon from '@expo/vector-icons/MaterialIcons'
-import { getSavedAttractions, removeFromSavedAttractions } from '../../api/savedAttractions.api'
+import { getSavedAttractions, removeFromSavedAttractions } from '../../api/attractions/services/savedAttractions.api'
 import { AttractionList } from '../../components/organisms/AttractionsList/AttractionList'
 import { NormalText } from '../../components/atoms/NormalText'
 import { parseLocationToRegion } from '../../components/organisms/Map/Map.util'
 import { Marker } from '../../models/Marker'
 import { useMapContext } from '../../context/Map/MapContext'
 import { Attraction } from '../../models/Attraction'
-import { addToVisitedAttractions } from '../../api/visitedAttractions.api'
+import { addToVisitedAttractions } from '../../api/attractions/services/visitedAttractions.api'
 
 export const SavedAttractions = () => {
   const queryClient = useQueryClient()
