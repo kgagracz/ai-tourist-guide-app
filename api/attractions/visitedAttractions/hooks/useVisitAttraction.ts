@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { visitAttraction } from '../servies/visitedAttractionsService'
+import { visitAttraction } from '../services/visitedAttractionsService'
 import { VISIT_ATTRACTION } from '../queryKeys'
 import { MutationCallbacksModel } from '../../../models/QueryCallbacksModel'
 

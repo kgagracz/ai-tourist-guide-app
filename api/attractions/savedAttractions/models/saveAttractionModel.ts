@@ -1,4 +1,4 @@
 export interface SaveAttractionBody {
     userId: number,
-    overpassAttractionId: number
+    overpassAttractionId: number,
 }
