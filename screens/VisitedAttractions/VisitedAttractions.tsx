@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { NormalText } from '../../components/atoms/NormalText'
 import { AttractionList } from '../../components/organisms/AttractionsList/AttractionList'
-import { getVisitedAttractions } from '../../api/attractions/services/visitedAttractions.api'
+import { getVisitedAttractions } from '../../api/attractions/attractionInfo/services/visitedAttractions.api'
 
 export const VisitedAttractions = () => {
   const queryClient = useQueryClient()

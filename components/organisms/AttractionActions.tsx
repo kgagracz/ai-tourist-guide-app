@@ -5,9 +5,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from '../atoms/Button'
 import { ThemeType } from './SchemeContext/SchemeProvider'
 import { Attraction } from '../../models/Attraction'
-import { addToVisitedAttractions } from '../../api/attractions/services/visitedAttractions.api'
-import { addToSavedAttractions } from '../../api/attractions/services/savedAttractions.api'
+import { addToVisitedAttractions } from '../../api/attractions/attractionInfo/services/visitedAttractions.api'
 import useToast from '../../hooks/useToast'
+import { useSaveAttraction } from '../../api/attractions/savedAttractions/hooks/useSaveAttraction'
+import { GET_SAVED_ATTRACTIONS } from '../../api/attractions/savedAttractions/queryKeys'
 
 type AttractionActionsProps = {
     attraction: Attraction
@@ -26,21 +27,19 @@ export const AttractionActions = ({ attraction }: AttractionActionsProps) => {
       showToast('Oznaczono atrakcję jako odwiedzoną.')
     },
   }, queryClient)
-  const { mutateAsync: addToSavedMutate } = useMutation({
-    mutationKey: ['attractions', 'savedAttractions'],
-    mutationFn: (attractionToAdd: Attraction) => addToSavedAttractions(attractionToAdd),
+  const { mutate: saveAttraction } = useSaveAttraction({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['savedAttractions'] })
-      showToast('Zapisano atrakcję.')
+      queryClient.invalidateQueries({ queryKey: [GET_SAVED_ATTRACTIONS] })
+      showToast('Dodano atrakcję do zapisanych.')
     },
-  }, queryClient)
+  })
   const onAddToVisitedClick = async () => {
     if (!attraction) { return }
     await addToVisitedMutate(attraction)
   }
   const onAddToSavedClick = async () => {
     if (!attraction) { return }
-    await addToSavedMutate(attraction)
+    saveAttraction({ overpassAttractionId: attraction.id, userId: 1 })
   }
   const onNavigateClick = async () => {
     if (!attraction) { return }
