@@ -1,45 +1,45 @@
 import { Linking, StyleSheet, View } from 'react-native'
 import Icon from '@expo/vector-icons/MaterialIcons'
 import { useTheme } from '@react-navigation/native'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { Button } from '../atoms/Button'
 import { ThemeType } from './SchemeContext/SchemeProvider'
 import { Attraction } from '../../models/Attraction'
-import { addToVisitedAttractions } from '../../api/attractions/attractionInfo/services/visitedAttractions.api'
 import useToast from '../../hooks/useToast'
 import { useSaveAttraction } from '../../api/attractions/savedAttractions/hooks/useSaveAttraction'
 import { GET_SAVED_ATTRACTIONS } from '../../api/attractions/savedAttractions/queryKeys'
+import { useVisitAttraction } from '../../api/attractions/visitedAttractions/hooks/useVisitAttraction'
+import { GET_VISITED_ATTRACTIONS } from '../../api/attractions/visitedAttractions/queryKeys'
 
 type AttractionActionsProps = {
     attraction: Attraction
 }
-
+const USER_ID = 1
 export const AttractionActions = ({ attraction }: AttractionActionsProps) => {
   const theme = useTheme()
   const styles = makeStyles(theme)
   const queryClient = useQueryClient()
   const { showToast } = useToast()
-  const { mutateAsync: addToVisitedMutate } = useMutation({
-    mutationKey: ['attractions', 'visitedAttractions'],
-    mutationFn: (attractionToAdd: Attraction) => addToVisitedAttractions(attractionToAdd),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['visitedAttractions'] })
-      showToast('Oznaczono atrakcję jako odwiedzoną.')
-    },
-  }, queryClient)
+
   const { mutate: saveAttraction } = useSaveAttraction({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [GET_SAVED_ATTRACTIONS] })
       showToast('Dodano atrakcję do zapisanych.')
     },
   })
+  const { mutate: addToVisited } = useVisitAttraction({
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [GET_VISITED_ATTRACTIONS] })
+      showToast('Dodano atrakcję do odwiedzonych.')
+    },
+  })
   const onAddToVisitedClick = async () => {
     if (!attraction) { return }
-    await addToVisitedMutate(attraction)
+    await addToVisited({ overpassAttractionId: attraction.id, userId: USER_ID })
   }
   const onAddToSavedClick = async () => {
     if (!attraction) { return }
-    saveAttraction({ overpassAttractionId: attraction.id, userId: 1 })
+    saveAttraction({ overpassAttractionId: attraction.id, userId: USER_ID })
   }
   const onNavigateClick = async () => {
     if (!attraction) { return }
