@@ -6,4 +6,6 @@ export default {
   menuSettings: 'Ustawienia',
   darkMode: 'Ciemny motyw',
   errorOccurred: 'Wystąpił błąd',
+  SAVING_ATTRACTION_FAILED: 'Nie udało się zapisać atrakcji.',
+  VISITING_ATTRACTION_FAILED: 'Nie udało się oznaczyć atrakcji jako odwiedzonej.',
 }
