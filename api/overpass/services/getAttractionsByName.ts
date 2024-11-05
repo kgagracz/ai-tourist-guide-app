@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { GestureResponderEvent } from 'react-native'
 import { OVERPASS_API_URL } from '../../../env.development'
 import { prepareDifferentLetterCaseExamples } from '../../../services/stringUtils'
@@ -26,9 +26,9 @@ const parseOverpassElementToAttractionListItem = (
 }) as AttractionItemInList
 
 export const parseResponseToAttractions = (
-  response: AxiosResponse<OverpassResponse>,
+  response: OverpassResponse,
   onAttractionPress: (e: GestureResponderEvent, attraction: Attraction) => void,
-) => response.data.elements
+) => response.elements
   .filter(filterOverpassElements)
   .map((element) => parseOverpassElementToAttractionListItem(element, onAttractionPress))
 

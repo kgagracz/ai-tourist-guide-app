@@ -28,7 +28,7 @@ export const useGetAttractionsByName = (phrase: string) => {
     queryKey: [GET_ATTRACTION_BY_NAME, phrase],
     queryFn: () => getAttractionsByName(phrase, abortController.signal),
     enabled: validatePhrase(phrase),
-    select: (data) => parseResponseToAttractions(data, onAttractionPress),
+    select: (data) => parseResponseToAttractions(data.data, onAttractionPress),
   })
 
   useEffect(() => () => {

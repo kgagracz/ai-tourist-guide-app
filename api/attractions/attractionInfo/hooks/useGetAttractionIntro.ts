@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { getAttractionIntro } from '../services/getAttractionIntro'
-import useToast from '../../../hooks/useToast'
-import { GET_ATTRACTION_INTRO } from '../queryKeys'
+import useToast from '../../../../hooks/useToast'
+import { GET_ATTRACTION_INTRO } from '../../queryKeys'
 
 export const useGetAttractionIntro = (attractionName: string, enabled: boolean) => {
   const toast = useToast()

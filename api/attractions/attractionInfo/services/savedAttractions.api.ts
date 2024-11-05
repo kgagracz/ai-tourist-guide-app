@@ -1,6 +1,6 @@
-import { Attraction } from '../../../models/Attraction'
-import { saveToAsyncStorage } from '../../../services/asyncStorage'
-import { get } from '../../../services/communication'
+import { Attraction } from '../../../../models/Attraction'
+import { saveToAsyncStorage } from '../../../../services/asyncStorage'
+import { get } from '../../../../services/communication'
 
 export const SAVED_ATTRACTIONS_API_URL = '/saved'
 

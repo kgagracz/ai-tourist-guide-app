@@ -1,23 +1,21 @@
 import { View } from 'react-native'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import Icon from '@expo/vector-icons/MaterialIcons'
-import { getSavedAttractions, removeFromSavedAttractions } from '../../api/attractions/services/savedAttractions.api'
+import { removeFromSavedAttractions } from '../../api/attractions/attractionInfo/services/savedAttractions.api'
 import { AttractionList } from '../../components/organisms/AttractionsList/AttractionList'
 import { NormalText } from '../../components/atoms/NormalText'
 import { parseLocationToRegion } from '../../components/organisms/Map/Map.util'
 import { Marker } from '../../models/Marker'
 import { useMapContext } from '../../context/Map/MapContext'
 import { Attraction } from '../../models/Attraction'
-import { addToVisitedAttractions } from '../../api/attractions/services/visitedAttractions.api'
+import { addToVisitedAttractions } from '../../api/attractions/attractionInfo/services/visitedAttractions.api'
+import { useGetSavedAttractions } from '../../api/attractions/savedAttractions/hooks/useGetSavedAttractions'
 
 export const SavedAttractions = () => {
   const queryClient = useQueryClient()
-  const { data: savedAttractions, isLoading } = useQuery({
-    queryKey: ['savedAttractions'],
-    queryFn: getSavedAttractions,
-  }, queryClient)
+  const { data: savedAttractions, isLoading } = useGetSavedAttractions()
   // todo - tutaj coś nie działa invalidateQueries. Po dodaniu do visited nie pobierają się visited.
   const { mutateAsync: addToVisited } = useMutation({
     mutationFn: (attraction: Attraction) => addToVisitedAttractions(attraction),
