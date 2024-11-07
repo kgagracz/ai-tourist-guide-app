@@ -12,7 +12,7 @@ interface UseSaveAttractionOptions extends MutationCallbacksModel {
 
 }
 
-export const useVisitAttraction = (options: UseSaveAttractionOptions) => {
+export const useVisitAttraction = (options: UseSaveAttractionOptions = {}) => {
   const { onSuccess, onError } = options
   const { t } = useTranslation()
   const { showToast } = useToast()

@@ -35,11 +35,11 @@ export const AttractionActions = ({ attraction }: AttractionActionsProps) => {
   })
   const onAddToVisitedClick = async () => {
     if (!attraction) { return }
-    await addToVisited({ overpassAttractionId: attraction.id, userId: USER_ID })
+    await addToVisited({ attractionOverpassId: attraction.id, userId: USER_ID })
   }
   const onAddToSavedClick = async () => {
     if (!attraction) { return }
-    saveAttraction({ overpassAttractionId: attraction.id, userId: USER_ID })
+    saveAttraction({ attractionOverpassId: attraction.id, userId: USER_ID })
   }
   const onNavigateClick = async () => {
     if (!attraction) { return }
