@@ -1,4 +1,4 @@
 export interface VisitAttractionBody {
     userId: number,
-    overpassAttractionId: number
+    attractionOverpassId: number
 }

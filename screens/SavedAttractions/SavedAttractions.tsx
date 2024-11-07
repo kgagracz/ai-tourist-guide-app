@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import Icon from '@expo/vector-icons/MaterialIcons'
-import { removeFromSavedAttractions } from '../../api/attractions/attractionInfo/services/savedAttractions.api'
 import { AttractionList } from '../../components/organisms/AttractionsList/AttractionList'
 import { NormalText } from '../../components/atoms/NormalText'
 import { parseLocationToRegion } from '../../components/organisms/Map/Map.util'
@@ -12,6 +11,8 @@ import { useMapContext } from '../../context/Map/MapContext'
 import { Attraction } from '../../models/Attraction'
 import { addToVisitedAttractions } from '../../api/attractions/attractionInfo/services/visitedAttractions.api'
 import { useGetSavedAttractions } from '../../api/attractions/savedAttractions/hooks/useGetSavedAttractions'
+import { useRemoveAttractionFromSaved } from '../../api/attractions/savedAttractions/hooks/useRemoveAttractionFromSaved'
+import { useVisitAttraction } from '../../api/attractions/visitedAttractions/hooks/useVisitAttraction'
 
 export const SavedAttractions = () => {
   const queryClient = useQueryClient()
@@ -23,12 +24,8 @@ export const SavedAttractions = () => {
       queryKey: ['visitedAttractions', 'savedAttractions'],
     }),
   }, queryClient)
-  const { mutateAsync: removeFromSaved } = useMutation({
-    mutationFn: (attractionId: Attraction['id']) => removeFromSavedAttractions(attractionId),
-    onSuccess: async () => queryClient.invalidateQueries({
-      queryKey: ['savedAttractions'],
-    }),
-  }, queryClient)
+  const { mutate: removeAttractionFromSaved } = useRemoveAttractionFromSaved()
+  const { mutate: markAttractionVisited } = useVisitAttraction()
   const navigation = useNavigation()
   const { addMarker, setMapRegion } = useMapContext()
   const { t } = useTranslation()
@@ -61,11 +58,11 @@ export const SavedAttractions = () => {
 
   const onMarkVisitedButtonClick = async (attraction: Attraction) => {
     await addToVisited(attraction)
-    await removeFromSaved(attraction.id)
+    await markAttractionVisited({ userId: 1, attractionOverpassId: attraction.id })
   }
 
   const onRemoveFromSavedButtonClick = async (attraction: Attraction) => {
-    await removeFromSaved(attraction.id)
+    removeAttractionFromSaved(attraction.id)
   }
 
   const attractionActions = {

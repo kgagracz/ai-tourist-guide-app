@@ -10,3 +10,4 @@ export const saveAttraction = (attraction: SaveAttractionBody) => axios.post(
 )
 
 export const getSavedAttractions = () => axios.get<ApiResponse<OverpassResponse>>(`${ATTRACTION_API_URL}/saved-attractions`)
+export const removeAttractionFromSaved = (attractionId: number) => axios.delete(`${ATTRACTION_API_URL}/saved-attractions/${attractionId}`)
