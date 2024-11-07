@@ -6,21 +6,18 @@ import { MarkerPressEvent } from 'react-native-maps'
 import Map from '../../components/organisms/Map/Map'
 import { AttractionDetailsModal } from './AttractionDetailsModal'
 import { Marker } from '../../models/Marker'
-import { useMapContext } from '../../context/Map/MapContext'
 import { Layout } from '../../components/organisms/Layout'
+import { useMapContext } from '../../context/Map/MapContext'
+import { getRegionFromMarker } from '../../services/marker'
 
 export function Home() {
   const attractionDetailsSheet = useRef<BottomSheetModal | null>(null)
-  const { setMapRegion } = useMapContext()
+  const { moveMapToRegion } = useMapContext()
 
   const openModal = (_: MarkerPressEvent, marker: Marker) => {
     attractionDetailsSheet.current?.present(marker)
-    // @ts-ignore
-    // setMapRegion((prev) => ({
-    //   ...prev,
-    //   latitudeDelta: 0.1,
-    //   longitudeDelta: 0.1,
-    // }))
+    const region = getRegionFromMarker(marker)
+    moveMapToRegion(region)
   }
 
   return (
