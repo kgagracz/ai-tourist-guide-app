@@ -1,7 +1,5 @@
-import MapView, {
-  Callout, Marker, MarkerPressEvent, Region,
-} from 'react-native-maps'
-import { Dimensions, Text, TouchableHighlight } from 'react-native'
+import MapView, { Marker, MarkerPressEvent, Region } from 'react-native-maps'
+import { Dimensions } from 'react-native'
 import { useEffect } from 'react'
 import { useTheme } from '@react-navigation/native'
 import { AxiosResponse } from 'axios'
@@ -70,20 +68,14 @@ const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
       />
       )}
       {markers.map((marker) => {
-        const { description, coordinate, title } = marker
+        const { description, coordinate } = marker
         return (
           <Marker
             description={description}
             coordinate={coordinate}
-            title={title}
             key={JSON.stringify(marker.coordinate)}
-          >
-            <Callout onPress={(e) => onMarkerPress?.(e, marker)}>
-              <TouchableHighlight>
-                <Text>{title}</Text>
-              </TouchableHighlight>
-            </Callout>
-          </Marker>
+            onPress={(e) => onMarkerPress?.(e, marker)}
+          />
         )
       })}
     </MapView>
