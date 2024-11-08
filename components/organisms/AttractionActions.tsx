@@ -6,10 +6,8 @@ import { Button } from '../atoms/Button'
 import { ThemeType } from './SchemeContext/SchemeProvider'
 import { Attraction } from '../../models/Attraction'
 import useToast from '../../hooks/useToast'
-import { useSaveAttraction } from '../../api/attractions/savedAttractions/hooks/useSaveAttraction'
-import { GET_SAVED_ATTRACTIONS } from '../../api/attractions/savedAttractions/queryKeys'
-import { useVisitAttraction } from '../../api/attractions/visitedAttractions/hooks/useVisitAttraction'
-import { GET_VISITED_ATTRACTIONS } from '../../api/attractions/visitedAttractions/queryKeys'
+import { useSaveAttraction } from '../../hooks/queryHooks/attractions/useSaveAttraction'
+import { useVisitAttraction } from '../../hooks/queryHooks/attractions/useVisitAttraction'
 
 type AttractionActionsProps = {
     attraction: Attraction
@@ -21,18 +19,8 @@ export const AttractionActions = ({ attraction }: AttractionActionsProps) => {
   const queryClient = useQueryClient()
   const { showToast } = useToast()
 
-  const { mutate: saveAttraction } = useSaveAttraction({
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [GET_SAVED_ATTRACTIONS] })
-      showToast('Dodano atrakcję do zapisanych.')
-    },
-  })
-  const { mutate: addToVisited } = useVisitAttraction({
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [GET_VISITED_ATTRACTIONS] })
-      showToast('Dodano atrakcję do odwiedzonych.')
-    },
-  })
+  const { mutate: saveAttraction } = useSaveAttraction()
+  const { mutate: addToVisited } = useVisitAttraction()
   const onAddToVisitedClick = async () => {
     if (!attraction) { return }
     await addToVisited({ attractionOverpassId: attraction.id, userId: USER_ID })

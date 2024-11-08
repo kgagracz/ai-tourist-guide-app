@@ -10,9 +10,9 @@ import { Marker } from '../../models/Marker'
 import { useMapContext } from '../../context/Map/MapContext'
 import { Attraction } from '../../models/Attraction'
 import { addToVisitedAttractions } from '../../api/attractions/attractionInfo/services/visitedAttractions.api'
-import { useGetSavedAttractions } from '../../api/attractions/savedAttractions/hooks/useGetSavedAttractions'
-import { useRemoveAttractionFromSaved } from '../../api/attractions/savedAttractions/hooks/useRemoveAttractionFromSaved'
-import { useVisitAttraction } from '../../api/attractions/visitedAttractions/hooks/useVisitAttraction'
+import { useGetSavedAttractions } from '../../hooks/queryHooks/attractions/useGetSavedAttractions'
+import { useRemoveAttractionFromSaved } from '../../hooks/queryHooks/attractions/useRemoveAttractionFromSaved'
+import { useVisitAttraction } from '../../hooks/queryHooks/attractions/useVisitAttraction'
 
 export const SavedAttractions = () => {
   const queryClient = useQueryClient()

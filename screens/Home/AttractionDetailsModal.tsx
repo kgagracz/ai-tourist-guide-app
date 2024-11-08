@@ -5,10 +5,10 @@ import { useTheme } from '@react-navigation/native'
 import { Marker } from '../../models/Marker'
 import { NormalText } from '../../components/atoms/NormalText'
 import { ThemeType } from '../../components/organisms/SchemeContext/SchemeProvider'
-import { useGetAttractionIntro } from '../../api/attractions/attractionInfo/hooks/useGetAttractionIntro'
 import Loader from '../../components/atoms/Loader'
 import { AttractionActions } from '../../components/organisms/AttractionActions'
 import { Heading } from '../../components/atoms/Heading'
+import { useGetAttractionIntro } from '../../hooks/queryHooks/attractions/useGetAttractionIntro'
 
 export const AttractionDetailsModal = forwardRef<BottomSheetModal>((_, ref) => {
   const snapPoints = ['75%']

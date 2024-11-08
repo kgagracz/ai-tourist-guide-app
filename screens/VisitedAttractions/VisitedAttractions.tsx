@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { NormalText } from '../../components/atoms/NormalText'
 import { AttractionList } from '../../components/organisms/AttractionsList/AttractionList'
-import { useGetVisitedAttractions } from '../../api/attractions/visitedAttractions/hooks/useGetVisitedAttractions'
+import { useGetVisitedAttractions } from '../../hooks/queryHooks/attractions/useGetVisitedAttractions'
 
 export const VisitedAttractions = () => {
   const { data: visitedAttractions, isLoading } = useGetVisitedAttractions()
