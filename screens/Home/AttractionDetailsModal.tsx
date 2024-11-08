@@ -1,6 +1,8 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { forwardRef, useMemo, useState } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import {
+  ScrollView, StyleSheet, TouchableWithoutFeedback, View,
+} from 'react-native'
 import { useTheme } from '@react-navigation/native'
 import { Marker } from '../../models/Marker'
 import { NormalText } from '../../components/atoms/NormalText'
@@ -10,34 +12,52 @@ import { AttractionActions } from '../../components/organisms/AttractionActions'
 import { Heading } from '../../components/atoms/Heading'
 import { useGetAttractionIntro } from '../../hooks/queryHooks/attractions/useGetAttractionIntro'
 
-export const AttractionDetailsModal = forwardRef<BottomSheetModal>((_, ref) => {
+type AttractionDetailsModalProps = {
+  closeModal: () => void
+}
+
+export const AttractionDetailsModal = forwardRef<BottomSheetModal, AttractionDetailsModalProps>(({
+  closeModal,
+}, bottomSheetModalRef) => {
   const snapPoints = ['75%']
   const [attractionName, setAttractionName] = useState<string | null>(null)
 
   // todo - handle attraction === undefined
-  const { data: attractionIntro, isLoading: isAttractionIntroLoading } = useGetAttractionIntro(attractionName ?? '', !!attractionName)
+  const {
+    data: attractionIntro,
+    isLoading: isAttractionIntroLoading,
+  } = useGetAttractionIntro(attractionName ?? '', !!attractionName)
 
   const theme = useTheme()
   const styles = useMemo(() => makeStyles(theme), [theme])
 
   const onModalDismiss = () => {
     setAttractionName(null)
+    closeModal()
   }
+
+  const CustomBackdrop = () => (
+    <TouchableWithoutFeedback onPress={onModalDismiss}>
+      <View style={styles.customBackdrop} />
+    </TouchableWithoutFeedback>
+  )
 
   return (
     <BottomSheetModal
-      ref={ref}
+      ref={bottomSheetModalRef}
       index={0}
       snapPoints={snapPoints}
-      enableContentPanningGesture={false}
+      // enableContentPanningGesture={false}
       onDismiss={onModalDismiss}
+      enableDismissOnClose
+      backdropComponent={CustomBackdrop}
     >
       {(data) => {
         const {
-          title, description, coordinate, attractionId,
+          title, coordinate, attractionId,
         } = data?.data as unknown as Marker
 
-        setAttractionName(title ?? null)
+        if (title) setAttractionName(title)
 
         return (
           <View style={styles.attractionDetailsContainer}>
@@ -71,5 +91,9 @@ const makeStyles = (theme: ThemeType) => StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  customBackdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 })
