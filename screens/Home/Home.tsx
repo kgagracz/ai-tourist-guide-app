@@ -20,12 +20,16 @@ export function Home() {
     moveMapToRegion(region)
   }
 
+  const closeModal = () => {
+    attractionDetailsSheet.current?.dismiss()
+  }
+
   return (
     <Layout>
       <View>
         <Map fullScreen onMarkerPress={openModal} />
       </View>
-      <AttractionDetailsModal ref={attractionDetailsSheet} />
+      <AttractionDetailsModal ref={attractionDetailsSheet} closeModal={closeModal} />
     </Layout>
   )
 }
