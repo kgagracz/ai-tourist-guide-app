@@ -6,4 +6,13 @@ export default {
   menuSettings: 'Settings',
   darkMode: 'Dark mode',
   errorOccurred: 'An error occurred',
+  SAVING_ATTRACTION_FAILED: 'Failed to save the attraction.',
+  VISITING_ATTRACTION_FAILED: 'Failed to mark the attraction as visited.',
+  REGISTER_VIEW_TITLE: 'Create Account',
+  EMAIL_PLACEHOLDER: 'Email',
+  PASSWORD_PLACEHOLDER: 'Password',
+  ALREADY_HAVE_ACCOUNT: 'Already have an account? Log in.',
+  SUBMIT_REGISTER_FORM: 'Register',
+  REGISTER_SUCCESS: 'Account created successfully.',
+  REGISTER_FAILED: 'Failed to create account.',
 }

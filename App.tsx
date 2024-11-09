@@ -6,9 +6,9 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { LogBox, StatusBar } from 'react-native'
 import { SchemeProvider } from './components/organisms/SchemeContext/SchemeProvider'
-import { Navigation } from './components/organisms/Navigation'
 import { MapContextProvider } from './context/Map/MapContext'
 import { initAsyncStorage } from './services/asyncStorage'
+import { RegisterScreen } from './screens/Login/RegisterScreen'
 
 const getFonts = () => Font.loadAsync({
   poppins: require('./assets/fonts/Poppins-Regular.ttf'),
@@ -46,7 +46,8 @@ export default function App() {
         <SchemeProvider>
           <GestureHandlerRootView>
             <BottomSheetModalProvider>
-              <Navigation />
+              <RegisterScreen />
+              {/* <Navigation /> */}
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </SchemeProvider>

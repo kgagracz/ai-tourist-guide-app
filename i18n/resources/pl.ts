@@ -8,4 +8,11 @@ export default {
   errorOccurred: 'Wystąpił błąd',
   SAVING_ATTRACTION_FAILED: 'Nie udało się zapisać atrakcji.',
   VISITING_ATTRACTION_FAILED: 'Nie udało się oznaczyć atrakcji jako odwiedzonej.',
+  REGISTER_VIEW_TITLE: 'Utwórz konto',
+  EMAIL_PLACEHOLDER: 'E-mail',
+  PASSWORD_PLACEHOLDER: 'Hasło',
+  ALREADY_HAVE_ACCOUNT: 'Masz już konto? Zaloguj się.',
+  SUBMIT_REGISTER_FORM: 'Zarejestruj się',
+  REGISTER_SUCCESS: 'Konto zostało utworzone.',
+  REGISTER_FAILED: 'Nie udało się utworzyć konta.',
 }
