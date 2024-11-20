@@ -9,7 +9,8 @@ export interface ValidationResults {
 }
 
 export const validateRegisterUserBody = (userRegisterBody: RegisterUserBodyModel, t: TFunction): ValidationResults => {
-  const { password, email, displayName } = userRegisterBody
+  const { password, email } = userRegisterBody
+  // @ts-ignore
   const errors: ValidationErrors = {}
   if (!password) {
     errors.password = t('PASSWORD_REQUIRED')

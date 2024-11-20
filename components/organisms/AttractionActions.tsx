@@ -22,11 +22,11 @@ export const AttractionActions = ({ attraction }: AttractionActionsProps) => {
   const { mutate: saveAttraction } = useSaveAttraction()
   const { mutate: addToVisited } = useVisitAttraction()
   const onAddToVisitedClick = async () => {
-    if (!attraction) { return }
+    if (!attraction || attraction.id === -1) { return }
     await addToVisited({ attractionOverpassId: attraction.id, userId: USER_ID })
   }
   const onAddToSavedClick = async () => {
-    if (!attraction) { return }
+    if (!attraction || attraction.id === -1) { return }
     saveAttraction({ attractionOverpassId: attraction.id, userId: USER_ID })
   }
   const onNavigateClick = async () => {

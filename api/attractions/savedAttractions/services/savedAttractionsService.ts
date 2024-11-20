@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { SaveAttractionBody } from '../models/saveAttractionModel'
-import { ATTRACTION_API_URL } from '../../../../env.development'
+import { ATTRACTION_API_URL } from '../../../../env.development.local'
 import { OverpassResponse } from '../../../overpass/models/OverpassResponse'
 import { ApiResponse } from '../../../models/ApiResponse'
 

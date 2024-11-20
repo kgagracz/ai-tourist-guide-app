@@ -1,5 +1,5 @@
 import axios from 'axios/index'
-import { OVERPASS_API_URL } from '../../../env.development'
+import { OVERPASS_API_URL } from '../../../env.development.local'
 import { OverpassResponse } from '../models/OverpassResponse'
 
 const prepareOverpassQuery = (city: string) => `[out:json][timeout:26];area[name~"${city}"]->.searchArea;nwr["tourism"="attraction"](area.searchArea);out geom;`

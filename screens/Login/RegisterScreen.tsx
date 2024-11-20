@@ -8,7 +8,11 @@ import { useRegisterUser } from '../../hooks/queryHooks/users/useRegisterUser'
 import { RegisterUserBodyModel } from '../../api/users/models/registerUserBodyModel'
 import { validateRegisterUserBody } from '../../api/users/services/validateRegisterUserBody'
 
-export const RegisterScreen = () => {
+interface RegisterScreenProps {
+  toggleLoginScreenEnabled?: () => void
+}
+
+export const RegisterScreen = ({ toggleLoginScreenEnabled }: RegisterScreenProps) => {
   const { t } = useTranslation()
   const theme = useTheme()
   const styles = useMemo(() => makeStyles(theme), [theme])
@@ -53,7 +57,7 @@ export const RegisterScreen = () => {
         />
         <Button loading={isPending} onPress={onSubmit} title={t('SUBMIT_REGISTER_FORM')} />
       </View>
-      <Button title={t('ALREADY_HAVE_ACCOUNT')} />
+      <Button onPress={toggleLoginScreenEnabled} title={t('ALREADY_HAVE_ACCOUNT')} />
     </View>
   )
 }
