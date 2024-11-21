@@ -1,9 +1,11 @@
 import { QueryClientProvider } from '@tanstack/react-query'
-import { PropsWithChildren, useCallback } from 'react'
+import { PropsWithChildren, useCallback, useEffect } from 'react'
 import { AxiosError } from 'axios'
 import { User } from 'firebase/auth'
+import { LogBox, StatusBar } from 'react-native'
 import { useQueryClientConfig } from '../hooks/useQueryClientConfig'
 import { useUserContext } from '../context/UserContext'
+import { auth } from '../firebase'
 
 const QueryClientWrapper = ({ children }: PropsWithChildren) => {
   const { setIsAuthenticated, setUser } = useUserContext()
@@ -21,8 +23,14 @@ const QueryClientWrapper = ({ children }: PropsWithChildren) => {
 
   const { queryClient } = useQueryClientConfig({
     onGlobalError,
-    onAuthStateChanged,
   })
+
+  useEffect(() => {
+    const subscriber = auth.onAuthStateChanged(onAuthStateChanged)
+    LogBox.ignoreAllLogs()
+    StatusBar.setHidden(true)
+    return subscriber
+  }, [])
 
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 }
