@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { GestureResponderEvent } from 'react-native'
-import { OVERPASS_API_URL } from '../../../env.development.local'
+import { OVERPASS_API_URL } from '@env'
 import { prepareDifferentLetterCaseExamples } from '../../../services/stringUtils'
 import { OverpassResponse } from '../models/OverpassResponse'
 import { Attraction } from '../../../models/Attraction'

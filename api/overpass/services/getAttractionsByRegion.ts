@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Region } from 'react-native-maps'
+import { OVERPASS_API_URL } from '@env'
 import { getBoundByRegion } from '../../../services/mapUtils'
-import { OVERPASS_API_URL } from '../../../env.development.local'
 import { OverpassResponse } from '../models/OverpassResponse'
 
 const prepareOverpassQuery = (coords: Region) => {
