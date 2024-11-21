@@ -1,13 +1,4 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import { VISITED_ATTRACTION_API_URL } from '../api/attractions/attractionInfo/services/visitedAttractions.api'
-import { SAVED_ATTRACTIONS_API_URL } from '../api/attractions/attractionInfo/services/savedAttractions.api'
-import savedAttractionsMock from '../mocks/savedAttractions.json'
-
-export const initAsyncStorage = async () => {
-  await AsyncStorage.clear()
-  await AsyncStorage.setItem(VISITED_ATTRACTION_API_URL, '[]')
-  await AsyncStorage.setItem(SAVED_ATTRACTIONS_API_URL, JSON.stringify(savedAttractionsMock))
-}
 
 export const getFromAsyncStorage = async (key: string) => {
   try {
