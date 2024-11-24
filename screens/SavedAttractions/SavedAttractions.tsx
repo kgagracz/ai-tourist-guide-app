@@ -58,7 +58,7 @@ export const SavedAttractions = () => {
 
   const onMarkVisitedButtonClick = async (attraction: Attraction) => {
     await addToVisited(attraction)
-    await markAttractionVisited({ userId: 1, attractionOverpassId: attraction.id })
+    await markAttractionVisited({ attractionOverpassId: attraction.id })
   }
 
   const onRemoveFromSavedButtonClick = async (attraction: Attraction) => {
