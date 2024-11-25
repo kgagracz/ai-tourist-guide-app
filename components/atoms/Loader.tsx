@@ -1,5 +1,9 @@
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, ActivityIndicatorProps } from 'react-native'
 
-const Loader = () => <ActivityIndicator />
+interface LoaderProps {
+    size?: ActivityIndicatorProps['size']
+}
+
+const Loader = ({ size = 'small' }: LoaderProps) => <ActivityIndicator size={size} />
 
 export default Loader

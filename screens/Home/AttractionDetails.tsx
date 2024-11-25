@@ -26,6 +26,10 @@ export const AttractionDetails = ({ marker }: AttractionDetailsProps) => {
     return <NormalText>Nie udało się pobrać</NormalText>
   }
 
+  if (isAttractionIntroLoading) {
+    return <Loader size="large" />
+  }
+
   if (!attraction) {
     return null
   }
@@ -37,7 +41,6 @@ export const AttractionDetails = ({ marker }: AttractionDetailsProps) => {
       <Heading>{title}</Heading>
       <AttractionActions attraction={attraction.data.data} />
       <ScrollView>
-        {isAttractionIntroLoading && <Loader />}
         {attraction && <NormalText>{attraction.data.data.description}</NormalText>}
       </ScrollView>
     </View>
