@@ -18,7 +18,7 @@ export const useGetAttractionQuestionsQuery = <TResultData = QuestionsResponse>(
   select,
 }: UseGetAttractionQuestionsQueryOptions<QuestionsResponse, TResultData>) => useQuery<QuestionsResponse, unknown, TResultData>({
   queryFn: () => getAttractionQuestions(overpassId),
-  queryKey: [GET_ATTRACTION_QUESTIONS],
+  queryKey: [GET_ATTRACTION_QUESTIONS, overpassId],
   enabled: !!overpassId && enabled,
   staleTime: Infinity,
   select,
