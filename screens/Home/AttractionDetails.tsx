@@ -8,7 +8,7 @@ import { NormalText } from '../../components/atoms/NormalText'
 import { Marker } from '../../models/Marker'
 import { useGetAttractionIntro } from '../../hooks/queryHooks/attractions/useGetAttractionIntro'
 import { ThemeType } from '../../components/organisms/SchemeContext/SchemeProvider'
-import { AttractionQuestions } from '../../components/organisms/AttractionQuestions.ts.tsx'
+import { AttractionQuestions } from '../../components/organisms/AttractionQuestions.ts'
 
 interface AttractionDetailsProps {
     marker?: Marker
