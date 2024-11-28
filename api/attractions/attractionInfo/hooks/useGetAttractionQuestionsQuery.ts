@@ -6,4 +6,5 @@ export const useGetAttractionQuestionsQuery = (overpassId?: number) => useQuery(
   queryFn: () => getAttractionQuestions(overpassId),
   queryKey: [GET_ATTRACTION_QUESTIONS],
   enabled: !!overpassId,
+  staleTime: Infinity,
 })
