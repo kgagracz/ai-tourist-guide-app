@@ -19,4 +19,5 @@ export default {
   REGISTER_SUCCESS: 'Konto zostało utworzone.',
   REGISTER_FAILED: 'Nie udało się utworzyć konta.',
   DONT_HAVE_ACCOUNT: 'Nie masz konta? Zarejestruj się.',
+  ATTRACTION_QUESTIONS_TITLE: 'Zadaj pytanie twojemu przewodnikowi:',
 }

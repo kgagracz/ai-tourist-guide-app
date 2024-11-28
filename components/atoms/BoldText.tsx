@@ -5,9 +5,12 @@ import { ThemeType } from '../organisms/SchemeContext/SchemeProvider'
 
 export const BoldText: React.FC<PropsWithChildren<TextProps>> = (props) => {
   const { colors } = useTheme()
-  const styles = makeStyles(colors)
+  const styles = {
+    ...makeStyles(colors),
+    ...Object(props.style),
+  }
   return (
-    <Text style={styles.text} {...props}>
+    <Text {...props} style={styles.text}>
       {props.children}
     </Text>
   )

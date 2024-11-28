@@ -33,7 +33,7 @@ export const AttractionDetailsModal = forwardRef<BottomSheetModal, AttractionDet
       ref={bottomSheetModalRef}
       index={0}
       snapPoints={snapPoints}
-      // enableContentPanningGesture={false}
+      enableContentPanningGesture={false}
       onDismiss={onModalDismiss}
       enableDismissOnClose
       backdropComponent={CustomBackdrop}

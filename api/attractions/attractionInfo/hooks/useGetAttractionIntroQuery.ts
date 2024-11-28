@@ -19,5 +19,6 @@ export const useGetAttractionIntroQuery = (options: GetAttractionIntroOptions) =
     queryKey: [GET_ATTRACTION_INTRO, attractionOverpassId],
     select,
     enabled,
+    staleTime: Infinity,
   })
 }
