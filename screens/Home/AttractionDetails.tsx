@@ -1,14 +1,14 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { useMemo } from 'react'
 import { useTheme } from '@react-navigation/native'
-import { Heading } from '../../components/atoms/Heading'
-import { AttractionActions } from '../../components/organisms/AttractionActions'
 import Loader from '../../components/atoms/Loader'
 import { NormalText } from '../../components/atoms/NormalText'
 import { Marker } from '../../models/Marker'
 import { useGetAttractionIntro } from '../../hooks/queryHooks/attractions/useGetAttractionIntro'
 import { ThemeType } from '../../components/organisms/SchemeContext/SchemeProvider'
 import { AttractionQuestions } from '../../components/organisms/AttractionQuestions.ts'
+import { Heading } from '../../components/atoms/Heading'
+import { AttractionActions } from '../../components/organisms/AttractionActions'
 
 interface AttractionDetailsProps {
     marker?: Marker
@@ -38,27 +38,34 @@ export const AttractionDetails = ({ marker }: AttractionDetailsProps) => {
   const { title } = marker
 
   return (
-    <View style={styles.attractionDetailsContainer}>
-      <Heading>{title}</Heading>
-      <AttractionActions attraction={attraction.data.data} />
-      <ScrollView>
-        {attraction && <NormalText>{attraction.data.data.description}</NormalText>}
-        {attraction && <AttractionQuestions attractionId={attraction.data.data.overpassId} />}
+    <View style={styles.container}>
+      <View style={styles.stickyContainer}>
+        <Heading>{title}</Heading>
+        <AttractionActions attraction={attraction.data.data} />
+      </View>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <NormalText>{attraction.data.data.description}</NormalText>
+        <AttractionQuestions attractionId={attraction.data.data.overpassId} />
       </ScrollView>
     </View>
   )
 }
 
 const makeStyles = (theme: ThemeType) => StyleSheet.create({
-  attractionDetailsContainer: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    display: 'flex',
-    gap: 24,
-  },
   container: {
+    flex: 1,
+    paddingBottom: 12,
+  },
+  stickyContainer: {
+    backgroundColor: 'white',
+    zIndex: 1,
+    elevation: 5,
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    gap: 12,
+    padding: 12,
+  },
+  scrollContent: {
+    paddingTop: 16, // Odsunięcie przewijanej treści od sticky headera
+    paddingHorizontal: 16,
   },
 })
