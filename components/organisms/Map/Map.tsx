@@ -1,8 +1,9 @@
 import MapView, { Marker, MarkerPressEvent, Region } from 'react-native-maps'
 import { Dimensions } from 'react-native'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useTheme } from '@react-navigation/native'
 import { AxiosResponse } from 'axios'
+import { LocationObject } from 'expo-location'
 import useUserLocation from '../../../hooks/useUserLocation'
 import { parseLocationToRegion } from './Map.util'
 import { useMapContext } from '../../../context/Map/MapContext'
@@ -11,6 +12,7 @@ import { parseAttractionsToMarkers } from '../../../services/marker'
 import { OverpassResponse } from '../../../api/overpass/models/OverpassResponse'
 import { useGetMarkersByCoords } from '../../../api/overpass/hooks/useGetMarkersByCoords'
 import { parseOverpassResponse } from '../../../api/overpass/services/utils'
+import { MapFloatingButtons } from './MapFloatingButtons/MapFloatingButtons'
 
 type MapProps = {
     fullScreen?: boolean
@@ -40,12 +42,16 @@ const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
     fetchMarkers(newRegion)
   }
 
-  const initUserLocation = useCallback(async () => {
-    const location = await getLocation()
-    const userRegion = parseLocationToRegion(location)
+  const centerToUserLocation = useCallback((userLocation: LocationObject | null) => {
+    const userRegion = parseLocationToRegion(userLocation)
     if (!userRegion) { return }
     moveMapToRegion(userRegion)
-  }, [getLocation, moveMapToRegion])
+  }, [moveMapToRegion])
+
+  const initUserLocation = useCallback(async () => {
+    const location = await getLocation()
+    centerToUserLocation(location)
+  }, [centerToUserLocation, getLocation])
 
   useEffect(() => {
     initUserLocation()
@@ -55,34 +61,40 @@ const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
     watchPosition()
   }, [])
 
+  const buttons = useMemo(() => ([
+    {
+      onPress: () => {
+        centerToUserLocation(location)
+      },
+      icon: 'my-location',
+    },
+  ]), [centerToUserLocation, location])
+
   return (
-    <MapView
-      ref={mapRef}
-      onRegionChangeComplete={onRegionChangeComplete}
-      style={{ height: fullScreen ? screenHeight : 300 }}
-      userInterfaceStyle={theme.dark ? 'dark' : 'light'}
-      loadingEnabled={isPending}
-      loadingIndicatorColor="red"
-    >
-      {location && (
-      <Marker
-        pinColor="gold"
-        coordinate={location?.coords}
-        title="Jesteś tutaj"
-      />
-      )}
-      {markers.map((marker) => {
-        const { description, coordinate } = marker
-        return (
-          <Marker
-            description={description}
-            coordinate={coordinate}
-            key={JSON.stringify(marker.coordinate)}
-            onPress={(e) => onMarkerPress?.(e, marker)}
-          />
-        )
-      })}
-    </MapView>
+    <>
+      <MapFloatingButtons buttons={buttons} />
+      <MapView
+        ref={mapRef}
+        onRegionChangeComplete={onRegionChangeComplete}
+        style={{ height: fullScreen ? screenHeight : 300 }}
+        userInterfaceStyle={theme.dark ? 'dark' : 'light'}
+        loadingEnabled={isPending}
+        loadingIndicatorColor="red"
+        showsUserLocation
+      >
+        {markers.map((marker) => {
+          const { description, coordinate } = marker
+          return (
+            <Marker
+              description={description}
+              coordinate={coordinate}
+              key={JSON.stringify(marker.coordinate)}
+              onPress={(e) => onMarkerPress?.(e, marker)}
+            />
+          )
+        })}
+      </MapView>
+    </>
   )
 }
 
