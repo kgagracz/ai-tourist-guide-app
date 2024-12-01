@@ -1,3 +1,6 @@
-import { useGetAttractionIntroQuery } from '../../../api/attractions/attractionInfo/hooks/useAskQuestionQuery'
+import {
+  GetAttractionIntroOptions,
+  useGetAttractionIntroQuery,
+} from '../../../api/attractions/attractionInfo/hooks/useAskQuestionQuery'
 
-export const useGetQuestionAnswer = () => useGetAttractionIntroQuery({})
+export const useGetQuestionAnswer = ({ onSuccess }: GetAttractionIntroOptions) => useGetAttractionIntroQuery({ onSuccess })

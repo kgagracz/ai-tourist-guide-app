@@ -6,7 +6,7 @@ import { NormalText } from '../../components/atoms/NormalText'
 import { Marker } from '../../models/Marker'
 import { useGetAttractionIntro } from '../../hooks/queryHooks/attractions/useGetAttractionIntro'
 import { ThemeType } from '../../components/organisms/SchemeContext/SchemeProvider'
-import { AttractionQuestions } from '../../components/organisms/AttractionQuestions.ts'
+import { AttractionQuestions } from '../../components/organisms/AttractionQuestions/AttractionQuestions.tsx'
 import { Heading } from '../../components/atoms/Heading'
 import { AttractionActions } from '../../components/organisms/AttractionActions'
 
