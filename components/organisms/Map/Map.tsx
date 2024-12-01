@@ -1,6 +1,6 @@
 import MapView, { Marker, MarkerPressEvent, Region } from 'react-native-maps'
 import { Dimensions } from 'react-native'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTheme } from '@react-navigation/native'
 import { AxiosResponse } from 'axios'
 import useUserLocation from '../../../hooks/useUserLocation'
@@ -18,7 +18,7 @@ type MapProps = {
 }
 
 const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
-  const { location, getLocation } = useUserLocation()
+  const { location, getLocation, watchPosition } = useUserLocation()
   const {
     moveMapToRegion, markers, mapRef, setMarkers,
   } = useMapContext()
@@ -40,15 +40,19 @@ const Map = ({ fullScreen, onMarkerPress }: MapProps) => {
     fetchMarkers(newRegion)
   }
 
-  const handleUserLocation = async () => {
+  const initUserLocation = useCallback(async () => {
     const location = await getLocation()
     const userRegion = parseLocationToRegion(location)
     if (!userRegion) { return }
     moveMapToRegion(userRegion)
-  }
+  }, [getLocation, moveMapToRegion])
 
   useEffect(() => {
-    handleUserLocation()
+    initUserLocation()
+  }, [])
+
+  useEffect(() => {
+    watchPosition()
   }, [])
 
   return (
