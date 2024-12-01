@@ -7,8 +7,8 @@ import { SavedAttractions } from '../../../screens/SavedAttractions/SavedAttract
 import SettingsPage from '../Settings/SettingsPage'
 import { useScheme } from '../SchemeContext/SchemeProvider'
 import { VisitedAttractions } from '../../../screens/VisitedAttractions/VisitedAttractions'
-import { HomeViewHeader } from '../HomeViewHeader'
 import { StackNavigation } from './StackNavigation'
+import { HomeViewHeader } from '../HomeViewHeader'
 
 const Tab = createBottomTabNavigator()
 

@@ -24,6 +24,7 @@ export const HomeViewHeader = (props) => {
         onChangeText={onSearchInputChange}
         onPress={onSearchInputPress}
         underlineColorAndroid="transparent"
+        placeholder="Znajdź atrakcję..."
       />
       {/* <Button icon={<Icon size={45} name="search" />} onPress={onSearchPress} /> */}
     </View>
