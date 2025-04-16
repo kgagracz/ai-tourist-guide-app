@@ -1,6 +1,33 @@
 # Tourist guide
 AI Travel Guide is a mobile application that acts as a smart personal tour guide. Users can explore an interactive map with various tourist attractions. When a user taps on a location, the app sends a request to an AI model, which generates a detailed description or story about the selected place — instantly and contextually.
 
+## Preview
+### 🗺️ Attractions on the Map  
+Users can browse an interactive map with marked tourist attractions. Each point is clickable and leads to a detailed view powered by AI-generated content.
+
+![Attractions on the Map](readmeAssets/atrakcje-na-mapie.png)
+
+---
+
+### 📖 Attraction Details View – Part 1  
+After selecting a location, the app fetches and displays a detailed description of the place, generated dynamically by AI.
+
+![Attraction Details View – Part 1](readmeAssets/widok-szczegolow-atrakcji-1.png)
+
+---
+
+### 📖 Attraction Details View – Part 2  
+Extended information and additional context are shown, including fun facts or historical background.
+
+![Attraction Details View – Part 2](readmeAssets/widok-szczegolow-atrakcji-2.png)
+
+---
+
+### 🔍 Search Results  
+Users can search for specific attractions or keywords, with results displayed in a clear, scrollable list.
+
+![Search Results](readmeAssets/wyniki-wyszukiwania.png)
+
 ## Functional requirements
 
 ### Main View (Map)
