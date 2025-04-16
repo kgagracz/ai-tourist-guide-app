@@ -1,5 +1,5 @@
 # Tourist guide
-An application for tourists with a map and saved places.
+AI Travel Guide is a mobile application that acts as a smart personal tour guide. Users can explore an interactive map with various tourist attractions. When a user taps on a location, the app sends a request to an AI model, which generates a detailed description or story about the selected place — instantly and contextually.
 
 ## Functional requirements
 
